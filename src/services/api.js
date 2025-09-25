@@ -76,7 +76,7 @@ api.interceptors.response.use(
           if (window.location.pathname !== '/login') {
             window.location.href = '/login';
           }
-        }, 5000);
+        }, 8000);
       }
     }
     return Promise.reject(error);
@@ -112,6 +112,113 @@ export const userAPI = {
   getUsers: () => {
     return api.get('/api/users');
   },
+};
+
+// POC API URLs (using different base URL for POC backend)
+const POC_API_BASE_URL = process.env.REACT_APP_POC_API_BASE_URL || 'http://localhost:8000/api';
+
+// Create separate axios instance for POC APIs with auth
+const pocApi = axios.create({
+  baseURL: POC_API_BASE_URL,
+  timeout: 30000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Add auth token to POC API requests
+pocApi.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('authToken');
+    if (token && token.length > 0) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    console.log(`Making ${config.method?.toUpperCase()} request to ${config.url}`);
+    return config;
+  },
+  (error) => {
+    console.error('Request error:', error);
+    return Promise.reject(error);
+  }
+);
+
+// POC API error handling
+pocApi.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    console.error('POC API Response error:', error);
+
+    if (error.response?.status === 401) {
+      // Handle unauthorized - redirect to login if needed
+      const isBusinessLogicError = error.response?.data?.detail?.includes('users already exist') ||
+                                   error.response?.data?.detail?.includes('role') ||
+                                   error.response?.data?.detail?.includes('permission');
+
+      if (!isBusinessLogicError) {
+        // Real authentication failure
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login';
+        }
+      }
+    }
+
+    if (error.response) {
+      // Server responded with error status
+      const message = error.response.data?.error || error.response.data?.message || 'Server error';
+      throw new Error(message);
+    } else if (error.request) {
+      // Request was made but no response received
+      throw new Error('Network error - please check your connection');
+    } else {
+      // Something else happened
+      throw new Error('Request failed');
+    }
+  }
+);
+
+// Database Connections API (POC)
+export const connectionsAPI = {
+  getAll: () => pocApi.get('/connections'),
+  create: (connectionData) => pocApi.post('/connections', connectionData),
+  getById: (id) => pocApi.get(`/connections/${id}`),
+  delete: (id) => pocApi.delete(`/connections/${id}`),
+  test: (connectionData) => pocApi.post('/connections/test', connectionData),
+  getTables: (connectionId) => pocApi.get(`/connections/${connectionId}/tables`),
+  getSourceTables: (connectionId) => pocApi.get(`/connections/${connectionId}/source_tables`),
+  getDestinationTables: (connectionId) => pocApi.get(`/connections/${connectionId}/destination_tables`),
+  getTableColumns: (connectionId, tableName) =>
+    pocApi.get(`/connections/${connectionId}/tables/${tableName}/columns`),
+  getSourceTableColumns: (connectionId, tableName) =>
+    pocApi.get(`/connections/${connectionId}/source_tables/${tableName}/columns`),
+};
+
+// Workflows API (POC)
+export const workflowsAPI = {
+  getAll: () => pocApi.get('/workflows'),
+  create: (workflowData) => pocApi.post('/workflows', workflowData),
+  getById: (id) => pocApi.get(`/workflows/${id}`),
+  update: (id, workflowData) => pocApi.put(`/workflows/${id}`, workflowData),
+  delete: (id) => pocApi.delete(`/workflows/${id}`),
+  getExecutions: (workflowId) => pocApi.get(`/workflows/${workflowId}/executions`),
+  getPiiAttributes: () => pocApi.get('/workflows/pii-attributes'),
+};
+
+// Masking API (POC)
+export const maskingAPI = {
+  executeWorkflow: (workflowId) => pocApi.post(`/masking/execute/${workflowId}`),
+  getExecutionStatus: (executionId) => pocApi.get(`/masking/execution/${executionId}/status`),
+  generateSampleData: (piiAttribute, count = 5) =>
+    pocApi.post('/masking/sample-data', { pii_attribute: piiAttribute, count }),
+  validateWorkflow: (workflowId) => pocApi.post('/masking/validate-workflow', { workflow_id: workflowId }),
+};
+
+// Health check (POC)
+export const healthAPI = {
+  check: () => pocApi.get('/health'),
 };
 
 export default api;

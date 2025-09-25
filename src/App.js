@@ -1,9 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login/Login';
-import Dashboard from './components/Dashboard/Dashboard';
-import Connections from './components/Connections/Connections';
-import Workflows from './components/Workflows/Workflows';
+import POCDashboard from './components/POCDashboard/POCDashboard';
+import POCConnectionsPage from './components/POCConnections/POCConnectionsPage';
+import POCWorkflowsPage from './components/POCWorkflows/POCWorkflowsPage';
+import CreateWorkflowPage from './components/POCWorkflows/CreateWorkflowPage';
+import WorkflowDetailPage from './components/POCWorkflows/WorkflowDetailPage';
 import RoleRegistration from './components/RoleRegistration/RoleRegistration';
 import UserRegistration from './components/UserRegistration/UserRegistration';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
@@ -16,12 +18,12 @@ function App() {
           {/* Public routes */}
           <Route path="/login" element={<Login />} />
 
-          {/* Protected routes */}
+          {/* Protected routes with copied POC components */}
           <Route
             path="/dashboard"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <POCDashboard />
               </ProtectedRoute>
             }
           />
@@ -29,7 +31,7 @@ function App() {
             path="/connections"
             element={
               <ProtectedRoute>
-                <Connections />
+                <POCConnectionsPage />
               </ProtectedRoute>
             }
           />
@@ -37,10 +39,28 @@ function App() {
             path="/workflows"
             element={
               <ProtectedRoute>
-                <Workflows />
+                <POCWorkflowsPage />
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/workflows/create"
+            element={
+              <ProtectedRoute>
+                <CreateWorkflowPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/workflows/:id"
+            element={
+              <ProtectedRoute>
+                <WorkflowDetailPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Admin routes */}
           <Route
             path="/register-role"
             element={

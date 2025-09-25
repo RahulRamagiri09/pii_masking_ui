@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Material-UI and Tailwind coexistence */
+.MuiBox-root,
+.MuiContainer-root,
+.MuiCard-root,
+.MuiCardContent-root,
+.MuiTypography-root,
+.MuiButton-root,
+.MuiDialog-root,
+.MuiDialogContent-root,
+.MuiDialogTitle-root,
+.MuiTextField-root,
+.MuiFormControl-root,
+.MuiInputBase-root,
+.MuiInputLabel-root,
+.MuiSelect-root,
+.MuiGrid-root {
+  /* Ensure Material-UI components are not affected by Tailwind resets */
+  box-sizing: border-box;
+}
+
+/* Prevent Tailwind from overriding Material-UI button styles */
+.MuiButton-root {
+  text-transform: none;
+}
+
+/* Ensure proper font rendering for Material-UI */
+.MuiTypography-root {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
