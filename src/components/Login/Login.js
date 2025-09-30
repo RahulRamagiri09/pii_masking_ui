@@ -63,11 +63,28 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center" style={{backgroundColor: '#0b2677'}}>
-      <div className="bg-white p-10 rounded-lg shadow-xl w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">PII Masking Tool - Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      {/* Centered Container */}
+      <div className="flex bg-white rounded-2xl shadow-2xl overflow-hidden max-w-5xl w-full mx-4">
+        {/* Left Section - Logo */}
+        <div className="w-1/2 flex items-center justify-center p-12" style={{backgroundColor: '#0b2677'}}>
+          <div className="text-center">
+            <img
+              src="/logo192.png"
+              alt="PII Masking Tool Logo"
+              className="w-48 h-48 mx-auto mb-6"
+            />
+            <h1 className="text-3xl font-bold text-white mb-2">PII Masking Tool</h1>
+            <p className="text-white text-base opacity-90">Secure Your Sensitive Data</p>
+          </div>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Right Section - Login Form */}
+        <div className="w-1/2 flex items-center justify-center bg-white p-12">
+          <div className="w-full max-w-sm">
+            <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">Login</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
           {error && (
             <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm text-center">
               {error}
@@ -85,6 +102,7 @@ const Login = () => {
               required
               placeholder="Enter your username"
               disabled={loading}
+              autoComplete="off"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
               style={{borderColor: 'rgb(209, 213, 219)'}}
               onFocus={(e) => e.target.style.borderColor = '#0b2677'}
@@ -104,6 +122,7 @@ const Login = () => {
                 required
                 placeholder="Enter your password"
                 disabled={loading}
+                autoComplete="off"
                 className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 style={{borderColor: 'rgb(209, 213, 219)'}}
                 onFocus={(e) => e.target.style.borderColor = '#0b2677'}
@@ -142,8 +161,10 @@ const Login = () => {
           </button>
         </form>
 
-        <div className="mt-6 text-center space-y-2">
-          <p className="text-sm text-gray-600">After login, access user registration and role creation from the Dashboard</p>
+            <div className="mt-6 text-center space-y-2">
+              <p className="text-sm text-gray-600">After login, access user registration and role creation from the Dashboard</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

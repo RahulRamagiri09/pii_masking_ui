@@ -45,16 +45,18 @@ const Navbar = ({ user }) => {
   return (
     <nav className="shadow-lg" style={{backgroundColor: '#0b2677'}}>
       <div className="flex justify-between items-center py-4 px-4">
-          <div className="flex items-center space-x-4 lg:space-x-8">
-            <div className="flex items-center space-x-2">
-              <img
-                src="/logo192.png"
-                alt="PII Masking Tool Logo"
-                className="h-8 w-8 lg:h-10 lg:w-10"
-              />
-              <h2 className="text-xl lg:text-2xl font-bold text-white">PII Masking Tool</h2>
-            </div>
+          {/* Left Section - Logo and Title */}
+          <div className="flex items-center space-x-2">
+            <img
+              src="/logo192.png"
+              alt="PII Masking Tool Logo"
+              className="h-8 w-8 lg:h-10 lg:w-10"
+            />
+            <h2 className="text-xl lg:text-2xl font-bold text-white">PII Masking Tool</h2>
+          </div>
 
+          {/* Right Section - Navigation Buttons and Profile */}
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Navigation Buttons */}
             <div className="hidden md:flex space-x-1">
               {navButtons.map((button) => (
@@ -71,9 +73,6 @@ const Navbar = ({ user }) => {
                 </button>
               ))}
             </div>
-          </div>
-
-          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Mobile menu for navigation buttons */}
             <div className="md:hidden">
               <select
