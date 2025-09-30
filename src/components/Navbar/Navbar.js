@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { clearAuthData } from '../../utils/auth';
 
 const Navbar = ({ user }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     clearAuthData();
     navigate('/login');
+    setDropdownOpen(false);
   };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -26,7 +47,14 @@ const Navbar = ({ user }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-4 lg:space-x-8">
-            <h2 className="text-xl lg:text-2xl font-bold text-white">PII Masking Tool</h2>
+            <div className="flex items-center space-x-2">
+              <img
+                src="/logo192.png"
+                alt="PII Masking Tool Logo"
+                className="h-8 w-8 lg:h-10 lg:w-10"
+              />
+              <h2 className="text-xl lg:text-2xl font-bold text-white">PII Masking Tool</h2>
+            </div>
 
             {/* Navigation Buttons */}
             <div className="hidden md:flex space-x-1">
@@ -62,15 +90,52 @@ const Navbar = ({ user }) => {
               </select>
             </div>
 
-            <span className="text-white text-xs sm:text-sm">
-              Welcome, {user?.username || 'User'}
-            </span>
-            <button
-              onClick={handleLogout}
-              className="bg-white text-indigo-600 px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-semibold hover:bg-gray-100 transition-colors"
-            >
-              Logout
-            </button>
+            {/* Profile Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={toggleDropdown}
+                className="flex items-center space-x-2 text-white hover:bg-white hover:bg-opacity-15 px-3 py-2 rounded-md transition-all duration-200"
+              >
+                {/* Profile Icon */}
+                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                </div>
+                <span className="text-xs sm:text-sm font-medium">{user?.username || 'User'}</span>
+                {/* Dropdown arrow */}
+                <svg
+                  className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Dropdown Menu */}
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+                  <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
+                    <div className="font-medium">{user?.username || 'User'}</div>
+                    <div className="text-xs text-gray-500">{user?.email || 'No email'}</div>
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                      <polyline points="16,17 21,12 16,7"/>
+                      <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    <span>Logout</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -162,7 +162,9 @@ const CreateConnectionDialog = ({ open, onClose, onConnectionCreated }) => {
                   label="Connection Type"
                 >
                   <MenuItem value="azure_sql">Azure SQL Database</MenuItem>
-                  <MenuItem value="oracle" disabled>Oracle (Coming Soon)</MenuItem>
+                  <MenuItem value="postgresql">PostgreSQL</MenuItem>
+                  <MenuItem value="oracle">Oracle</MenuItem>
+                  <MenuItem value="sql_server">SQL Server (SSMS)</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

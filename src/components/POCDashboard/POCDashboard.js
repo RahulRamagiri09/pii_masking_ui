@@ -16,6 +16,8 @@ import {
   Add as AddIcon,
   CheckCircle as CheckIcon,
   Error as ErrorIcon,
+  PersonAdd as PersonAddIcon,
+  Security as SecurityIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { connectionsAPI, workflowsAPI } from '../../services/api';
@@ -179,6 +181,20 @@ const POCDashboard = () => {
               </Button>
               <Button
                 variant="outlined"
+                startIcon={<PersonAddIcon />}
+                onClick={() => navigate('/register-user')}
+              >
+                Register New User
+              </Button>
+              <Button
+                variant="outlined"
+                startIcon={<SecurityIcon />}
+                onClick={() => navigate('/register-role')}
+              >
+                Create New Role
+              </Button>
+              <Button
+                variant="outlined"
                 onClick={() => navigate('/workflows')}
               >
                 View All Workflows
@@ -231,14 +247,16 @@ const POCDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="h-screen flex flex-col bg-gray-50">
       <Navbar user={user} />
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Box sx={{ maxWidth: 'xl', mx: 'auto', mt: 3, mb: 3, px: 3 }}>
-          {dashboardContent()}
-        </Box>
-      </ThemeProvider>
+      <div className="flex-1 overflow-auto">
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Box sx={{ maxWidth: 'xl', mx: 'auto', mt: 3, mb: 3, px: 3 }}>
+            {dashboardContent()}
+          </Box>
+        </ThemeProvider>
+      </div>
     </div>
   );
 };
