@@ -61,13 +61,15 @@ const Dashboard = () => {
             <div className="space-y-3">
               <button
                 onClick={() => navigate('/register-user')}
-                className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity"
+                className="w-full text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity"
+                style={{backgroundColor: '#0b2677'}}
               >
                 Register New User
               </button>
               <button
                 onClick={() => navigate('/register-role')}
-                className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity"
+                className="w-full text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity"
+                style={{backgroundColor: '#0b2677'}}
               >
                 Create New Role
               </button>
@@ -86,19 +88,19 @@ const Dashboard = () => {
               <p className="mb-4 text-sm">Coming soon...</p>
               <ul className="space-y-2">
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Upload documents for PII detection
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Automatic PII masking
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Export masked documents
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   View masking history
                 </li>
               </ul>

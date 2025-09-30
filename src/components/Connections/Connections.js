@@ -38,23 +38,23 @@ const Connections = () => {
               <p className="mb-4 text-sm">Connect to your databases for PII scanning</p>
               <ul className="space-y-2">
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   MySQL / MariaDB
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   PostgreSQL
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   SQL Server
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Oracle Database
                 </li>
               </ul>
-              <button className="w-full mt-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity">
+              <button className="w-full mt-4 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity" style={{backgroundColor: '#0b2677'}}>
                 Add Database Connection
               </button>
             </div>
@@ -66,23 +66,23 @@ const Connections = () => {
               <p className="mb-4 text-sm">Connect to file systems and storage</p>
               <ul className="space-y-2">
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Local File System
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   AWS S3
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Azure Blob Storage
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Google Cloud Storage
                 </li>
               </ul>
-              <button className="w-full mt-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity">
+              <button className="w-full mt-4 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity" style={{backgroundColor: '#0b2677'}}>
                 Add File Connection
               </button>
             </div>
@@ -94,23 +94,23 @@ const Connections = () => {
               <p className="mb-4 text-sm">Connect to external APIs and services</p>
               <ul className="space-y-2">
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   REST APIs
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   GraphQL APIs
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Salesforce
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Microsoft 365
                 </li>
               </ul>
-              <button className="w-full mt-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity">
+              <button className="w-full mt-4 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity" style={{backgroundColor: '#0b2677'}}>
                 Add API Connection
               </button>
             </div>

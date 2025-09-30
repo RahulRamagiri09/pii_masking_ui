@@ -38,23 +38,23 @@ const Workflows = () => {
               <p className="mb-4 text-sm">Automated workflows to discover PII in your data sources</p>
               <ul className="space-y-2">
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Scan databases for sensitive data
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Analyze file contents for PII
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Generate compliance reports
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Schedule automatic scans
                 </li>
               </ul>
-              <button className="w-full mt-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity">
+              <button className="w-full mt-4 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity" style={{backgroundColor: '#0b2677'}}>
                 Create Detection Workflow
               </button>
             </div>
@@ -66,23 +66,23 @@ const Workflows = () => {
               <p className="mb-4 text-sm">Automated workflows to mask or anonymize sensitive data</p>
               <ul className="space-y-2">
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Apply masking rules to datasets
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Tokenize sensitive information
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Generate anonymized copies
                 </li>
                 <li className="text-sm flex items-start">
-                  <span className="text-indigo-500 font-bold mr-2">•</span>
+                  <span className="font-bold mr-2" style={{color: '#0b2677'}}>•</span>
                   Batch processing capabilities
                 </li>
               </ul>
-              <button className="w-full mt-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity">
+              <button className="w-full mt-4 text-white py-2 px-4 rounded-md font-medium hover:opacity-90 transition-opacity" style={{backgroundColor: '#0b2677'}}>
                 Create Masking Workflow
               </button>
             </div>

@@ -62,7 +62,7 @@ const RoleRegistration = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+    <div className="min-h-screen flex items-center justify-center" style={{backgroundColor: '#0b2677'}}>
       <div className="bg-white p-10 rounded-lg shadow-xl w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">Create New Role</h2>
 
@@ -90,22 +90,26 @@ const RoleRegistration = () => {
               required
               placeholder="Enter role name (e.g., Admin, User, Manager)"
               disabled={loading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              style={{borderColor: 'rgb(209, 213, 219)'}}
+              onFocus={(e) => e.target.style.borderColor = '#0b2677'}
+              onBlur={(e) => e.target.style.borderColor = 'rgb(209, 213, 219)'}
             />
           </div>
 
           <button
             type="submit"
             disabled={loading || !formData.rolename.trim()}
-            className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-4 rounded-md font-semibold hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+            className="w-full text-white py-3 px-4 rounded-md font-semibold hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+            style={{backgroundColor: '#0b2677'}}
           >
             {loading ? 'Creating Role...' : 'Create Role'}
           </button>
         </form>
 
         <div className="mt-6 text-center space-y-2">
-          <p className="text-sm text-gray-600">Need to create a user? <Link to="/register-user" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline">Register User</Link></p>
-          <p className="text-sm text-gray-600">Go back to <Link to="/dashboard" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline">Dashboard</Link></p>
+          <p className="text-sm text-gray-600">Need to create a user? <Link to="/register-user" className="font-medium hover:underline" style={{color: '#0b2677'}}>Register User</Link></p>
+          <p className="text-sm text-gray-600">Go back to <Link to="/dashboard" className="font-medium hover:underline" style={{color: '#0b2677'}}>Dashboard</Link></p>
         </div>
       </div>
     </div>

@@ -118,7 +118,7 @@ const UserRegistration = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 py-8">
+    <div className="min-h-screen flex items-center justify-center py-8" style={{backgroundColor: '#0b2677'}}>
       <div className="bg-white p-10 rounded-lg shadow-xl w-full max-w-lg">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">User Registration</h2>
 
@@ -146,7 +146,10 @@ const UserRegistration = () => {
               required
               placeholder="Choose a username"
               disabled={loading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              style={{borderColor: 'rgb(209, 213, 219)'}}
+              onFocus={(e) => e.target.style.borderColor = '#0b2677'}
+              onBlur={(e) => e.target.style.borderColor = 'rgb(209, 213, 219)'}
             />
           </div>
 
@@ -161,7 +164,10 @@ const UserRegistration = () => {
               required
               placeholder="Enter your email address"
               disabled={loading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              style={{borderColor: 'rgb(209, 213, 219)'}}
+              onFocus={(e) => e.target.style.borderColor = '#0b2677'}
+              onBlur={(e) => e.target.style.borderColor = 'rgb(209, 213, 219)'}
             />
           </div>
 
@@ -177,7 +183,10 @@ const UserRegistration = () => {
                 required
                 placeholder="Create a password (min. 6 characters)"
                 disabled={loading}
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                style={{borderColor: 'rgb(209, 213, 219)'}}
+                onFocus={(e) => e.target.style.borderColor = '#0b2677'}
+                onBlur={(e) => e.target.style.borderColor = 'rgb(209, 213, 219)'}
               />
               <button
                 type="button"
@@ -214,7 +223,10 @@ const UserRegistration = () => {
                 required
                 placeholder="Re-enter your password"
                 disabled={loading}
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                style={{borderColor: 'rgb(209, 213, 219)'}}
+                onFocus={(e) => e.target.style.borderColor = '#0b2677'}
+                onBlur={(e) => e.target.style.borderColor = 'rgb(209, 213, 219)'}
               />
               <button
                 type="button"
@@ -248,7 +260,10 @@ const UserRegistration = () => {
               onChange={handleChange}
               required
               disabled={loading || loadingRoles}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              style={{borderColor: 'rgb(209, 213, 219)'}}
+              onFocus={(e) => e.target.style.borderColor = '#0b2677'}
+              onBlur={(e) => e.target.style.borderColor = 'rgb(209, 213, 219)'}
             >
               <option value="">Select a role</option>
               {roles.map((role) => (
@@ -263,15 +278,16 @@ const UserRegistration = () => {
           <button
             type="submit"
             disabled={loading || loadingRoles}
-            className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-4 rounded-md font-semibold hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+            className="w-full text-white py-3 px-4 rounded-md font-semibold hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+            style={{backgroundColor: '#0b2677'}}
           >
             {loading ? 'Registering...' : 'Register User'}
           </button>
         </form>
 
         <div className="mt-6 text-center space-y-2">
-          <p className="text-sm text-gray-600">Need to create a role first? <Link to="/register-role" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline">Create Role</Link></p>
-          <p className="text-sm text-gray-600">Go back to <Link to="/dashboard" className="text-indigo-600 hover:text-indigo-800 font-medium hover:underline">Dashboard</Link></p>
+          <p className="text-sm text-gray-600">Need to create a role first? <Link to="/register-role" className="font-medium hover:underline" style={{color: '#0b2677'}}>Create Role</Link></p>
+          <p className="text-sm text-gray-600">Go back to <Link to="/dashboard" className="font-medium hover:underline" style={{color: '#0b2677'}}>Dashboard</Link></p>
         </div>
       </div>
     </div>

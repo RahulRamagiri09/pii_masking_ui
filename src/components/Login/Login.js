@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+    <div className="min-h-screen flex items-center justify-center" style={{backgroundColor: '#0b2677'}}>
       <div className="bg-white p-10 rounded-lg shadow-xl w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">PII Masking Tool - Login</h2>
 
@@ -85,7 +85,10 @@ const Login = () => {
               required
               placeholder="Enter your username"
               disabled={loading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              style={{borderColor: 'rgb(209, 213, 219)'}}
+              onFocus={(e) => e.target.style.borderColor = '#0b2677'}
+              onBlur={(e) => e.target.style.borderColor = 'rgb(209, 213, 219)'}
             />
           </div>
 
@@ -101,7 +104,10 @@ const Login = () => {
                 required
                 placeholder="Enter your password"
                 disabled={loading}
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                style={{borderColor: 'rgb(209, 213, 219)'}}
+                onFocus={(e) => e.target.style.borderColor = '#0b2677'}
+                onBlur={(e) => e.target.style.borderColor = 'rgb(209, 213, 219)'}
               />
               <button
                 type="button"
@@ -129,7 +135,8 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-4 rounded-md font-semibold hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+            className="w-full text-white py-3 px-4 rounded-md font-semibold hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+            style={{backgroundColor: '#0b2677'}}
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
