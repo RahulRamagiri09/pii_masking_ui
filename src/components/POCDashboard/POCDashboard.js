@@ -129,29 +129,25 @@ const POCDashboard = () => {
 
         {/* Stats Cards */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
-          <Grid item xs={12} sm={6} md={3}>
-            <Card>
+          <Grid item xs={12} sm={6} md={6}>
+            <Card sx={{ width: '250px' }}>
               <CardContent>
-                <Box display="flex" alignItems="center">
-                  <StorageIcon color="primary" sx={{ mr: 2 }} />
-                  <Box>
-                    <Typography variant="h4">{stats.connections}</Typography>
-                    <Typography color="text.secondary">Connections</Typography>
-                  </Box>
+                <Box display="flex" alignItems="center" gap={2}>
+                  <StorageIcon color="primary" />
+                  <Typography variant="h4">{stats.connections}</Typography>
+                  <Typography color="text.secondary">Connections</Typography>
                 </Box>
               </CardContent>
             </Card>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Card>
+          <Grid item xs={12} sm={6} md={6}>
+            <Card sx={{ width: '250px' }}>
               <CardContent>
-                <Box display="flex" alignItems="center">
-                  <PlayIcon color="primary" sx={{ mr: 2 }} />
-                  <Box>
-                    <Typography variant="h4">{stats.workflows}</Typography>
-                    <Typography color="text.secondary">Workflows</Typography>
-                  </Box>
+                <Box display="flex" alignItems="center" gap={2}>
+                  <PlayIcon color="primary" />
+                  <Typography variant="h4">{stats.workflows}</Typography>
+                  <Typography color="text.secondary">Workflows</Typography>
                 </Box>
               </CardContent>
             </Card>

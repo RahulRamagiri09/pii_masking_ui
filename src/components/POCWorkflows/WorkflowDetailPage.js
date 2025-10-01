@@ -88,21 +88,23 @@ const WorkflowDetailPage = () => {
   const [executeDialog, setExecuteDialog] = useState(false);
   const [executing, setExecuting] = useState(false);
   const [currentExecution, setCurrentExecution] = useState(null);
+  const [taskId, setTaskId] = useState(null);
+  const [pollingInterval, setPollingInterval] = useState(null);
 
   useEffect(() => {
     loadWorkflowData();
     loadConnections();
   }, [workflowId]);
 
-  useEffect(() => {
-    let interval;
-    if (currentExecution && currentExecution.status === 'running') {
-      interval = setInterval(checkExecutionStatus, 8000);
-    }
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [currentExecution]);
+  // useEffect(() => {
+  //   let interval;
+  //   if (currentExecution && (currentExecution.status === 'running' || currentExecution.status === 'queued')) {
+  //     interval = setInterval(checkExecutionStatus, 3000); // Poll every 3 seconds
+  //   }
+  //   return () => {
+  //     if (interval) clearInterval(interval);
+  //   };
+  // }, [currentExecution]);
 
   const loadWorkflowData = async () => {
     try {
@@ -142,13 +144,14 @@ const WorkflowDetailPage = () => {
     if (!currentExecution) return;
 
     try {
-      const response = await maskingAPI.getExecutionStatus(currentExecution.id);
+      const response = await maskingAPI.getExecutionStatus(workflowId, currentExecution.execution_id || currentExecution.id);
       const updatedExecution = response.data?.data || response.data;
 
       setCurrentExecution(updatedExecution);
 
-      if (updatedExecution.status !== 'running') {
+      if (updatedExecution.status === 'completed' || updatedExecution.status === 'failed') {
         setCurrentExecution(null);
+        setExecuting(false);
         loadWorkflowData();
       }
     } catch (err) {
@@ -159,17 +162,31 @@ const WorkflowDetailPage = () => {
   const handleExecuteWorkflow = async () => {
     try {
       setExecuting(true);
+      setError(null);
+
       const response = await maskingAPI.executeWorkflow(workflowId);
-      const execution = response.data?.data || response.data;
+      const result = response.data?.data || response.data;
+
+      // New async endpoint returns execution_id, task_id, status, message
+      const execution = {
+        execution_id: result.execution_id,
+        task_id: result.task_id,
+        status: result.status || 'queued',
+        message: result.message || 'Workflow execution queued successfully',
+        progress: 0,
+        records_processed: 0
+      };
 
       setCurrentExecution(execution);
+      setTaskId(result.task_id);
       setExecuteDialog(false);
       setTabValue(1);
 
-      setTimeout(loadWorkflowData, 1000);
+      // Don't set executing to false - let polling handle it
+      // Show success message
+      setError(null);
     } catch (err) {
-      setError(err.message);
-    } finally {
+      setError(err.message || 'Failed to start workflow execution');
       setExecuting(false);
     }
   };
@@ -202,6 +219,15 @@ const WorkflowDetailPage = () => {
             icon={<CircularProgress size={16} />}
             label="Running"
             color="warning"
+            size="small"
+          />
+        );
+      case 'queued':
+        return (
+          <Chip
+            icon={<ScheduleIcon />}
+            label="Queued"
+            color="info"
             size="small"
           />
         );

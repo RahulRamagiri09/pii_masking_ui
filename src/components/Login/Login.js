@@ -27,11 +27,16 @@ const Login = () => {
     setError('');
     setLoading(true);
 
+    console.log('🔐 LOGIN ATTEMPT STARTED');
+    console.log('   Username:', formData.username);
+    console.log('   Password length:', formData.password.length);
+
     try {
+      console.log('📡 Calling authAPI.login...');
       const response = await authAPI.login(formData);
 
       // Debug: Log the actual response to see the structure
-      console.log('Login response:', response.data);
+      console.log('✅ Login response received:', response.data);
 
       // Handle different possible response formats
       let token = response.data.token || response.data.access_token || response.data.accessToken;
@@ -52,9 +57,20 @@ const Login = () => {
       // Redirect to dashboard
       navigate('/dashboard');
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('❌ LOGIN ERROR:', error);
+      console.error('   Error type:', error.constructor.name);
+      console.error('   Error message:', error.message);
+      console.error('   Response status:', error.response?.status);
+      console.error('   Response data:', error.response?.data);
+      console.error('   Request config:', error.config);
+
+      if (error.message.includes('Network Error') || error.message.includes('CORS')) {
+        console.error('🚨 CORS/Network error detected!');
+      }
+
       setError(
         error.response?.data?.message ||
+        error.message ||
         'Failed to login. Please check your credentials and try again.'
       );
     } finally {

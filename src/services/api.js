@@ -14,17 +14,29 @@ const api = axios.create({
 // Add request interceptor to include auth token
 api.interceptors.request.use(
   (config) => {
+    console.log('🚀 REQUEST INTERCEPTOR CALLED');
+    console.log('   Method:', config.method?.toUpperCase());
+    console.log('   URL:', config.url);
+    console.log('   BaseURL:', config.baseURL);
+    console.log('   Full URL:', config.baseURL + config.url);
+
     const token = localStorage.getItem('authToken');
     console.log('🔑 Token check:', token ? 'Token exists' : 'No token found');
-    console.log('🔑 Full token value:', token);
 
     if (token && token.length > 0) {
       config.headers.Authorization = `Bearer ${token}`;
-      console.log('✅ API request with token:', config.url, 'Token preview:', token.substring(0, 20) + '...');
-      console.log('🔒 Authorization header set:', config.headers.Authorization.substring(0, 30) + '...');
+      console.log('✅ API request with token:', config.url);
     } else {
       console.log('❌ API request without token:', config.url);
     }
+
+    console.log('📋 Final config:', JSON.stringify({
+      method: config.method,
+      url: config.url,
+      baseURL: config.baseURL,
+      headers: config.headers
+    }, null, 2));
+
     return config;
   },
   (error) => {
@@ -86,6 +98,12 @@ api.interceptors.response.use(
 // Auth APIs
 export const authAPI = {
   login: (credentials) => {
+    console.log('🔑 authAPI.login called with credentials:', {
+      username: credentials.username,
+      passwordLength: credentials.password?.length
+    });
+    console.log('📡 Making POST request to /api/auth/login');
+    console.log('   Using api instance with baseURL:', api.defaults.baseURL);
     return api.post('/api/auth/login', credentials);
   },
   logout: () => {
@@ -209,8 +227,8 @@ export const workflowsAPI = {
 
 // Masking API (POC)
 export const maskingAPI = {
-  executeWorkflow: (workflowId) => pocApi.post(`/masking/execute/${workflowId}`),
-  getExecutionStatus: (executionId) => pocApi.get(`/masking/execution/${executionId}/status`),
+  executeWorkflow: (workflowId) => pocApi.post(`/workflows/${workflowId}/execute`),
+  getExecutionStatus: (workflowId, executionId) => pocApi.get(`/workflows/${workflowId}/executions/${executionId}/status`),
   generateSampleData: (piiAttribute, count = 5) =>
     pocApi.post('/masking/sample-data', { pii_attribute: piiAttribute, count }),
   validateWorkflow: (workflowId) => pocApi.post('/masking/validate-workflow', { workflow_id: workflowId }),

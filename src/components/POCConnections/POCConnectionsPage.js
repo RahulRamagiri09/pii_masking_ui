@@ -10,6 +10,11 @@ import {
   CircularProgress,
   IconButton,
   Chip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogContentText,
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -45,6 +50,8 @@ const POCConnectionsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [connectionToDelete, setConnectionToDelete] = useState(null);
 
   useEffect(() => {
     loadConnections();
@@ -66,15 +73,27 @@ const POCConnectionsPage = () => {
     }
   };
 
-  const handleDeleteConnection = async (connectionId) => {
-    if (window.confirm('Are you sure you want to delete this connection?')) {
-      try {
-        await connectionsAPI.delete(connectionId);
-        setConnections(connections.filter(conn => conn.id !== connectionId));
-      } catch (err) {
-        setError(err.message);
-      }
+  const handleDeleteConnection = (connection) => {
+    setConnectionToDelete(connection);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await connectionsAPI.delete(connectionToDelete.id);
+      setConnections(connections.filter(conn => conn.id !== connectionToDelete.id));
+      setDeleteDialogOpen(false);
+      setConnectionToDelete(null);
+    } catch (err) {
+      setError(err.message);
+      setDeleteDialogOpen(false);
+      setConnectionToDelete(null);
     }
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setConnectionToDelete(null);
   };
 
   const getStatusChip = (status) => {
@@ -119,13 +138,23 @@ const POCConnectionsPage = () => {
       field: 'connection_type',
       headerName: 'Type',
       width: 120,
-      renderCell: (params) => (
-        <Chip
-          label={params.value === 'azure_sql' ? 'Azure SQL' : 'Oracle'}
-          variant="outlined"
-          size="small"
-        />
-      ),
+      renderCell: (params) => {
+        const typeLabels = {
+          'postgresql': 'PostgreSQL',
+          'azure_sql': 'Azure SQL',
+          'oracle': 'Oracle',
+          'mysql': 'MySQL',
+          'mssql': 'SQL Server'
+        };
+
+        return (
+          <Chip
+            label={typeLabels[params.value] || params.value}
+            variant="outlined"
+            size="small"
+          />
+        );
+      },
     },
     {
       field: 'server',
@@ -158,7 +187,7 @@ const POCConnectionsPage = () => {
         <Box>
           <IconButton
             size="small"
-            onClick={() => handleDeleteConnection(params.row.id)}
+            onClick={() => handleDeleteConnection(params.row)}
             color="error"
           >
             <DeleteIcon />
@@ -233,6 +262,31 @@ const POCConnectionsPage = () => {
             loadConnections();
           }}
         />
+
+        <Dialog
+          open={deleteDialogOpen}
+          onClose={handleCancelDelete}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle>Delete Connection</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete the connection <strong>"{connectionToDelete?.name}"</strong>?
+              <br />
+              <br />
+              This action cannot be undone and will permanently remove this connection from the system.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelDelete} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleConfirmDelete} color="error" variant="contained">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     );
   };
